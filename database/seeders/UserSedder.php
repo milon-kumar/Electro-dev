@@ -19,6 +19,7 @@ class UserSedder extends Seeder
         User::updateOrCreate([
             'name'=>'Milon Kumar',
             'role_id'=>1,
+            'role_name'=>'admin',
             'email'=>'example@gmail.com',
             'password'=>Hash::make('example@gmail.com'),
             'status'=>1
@@ -27,6 +28,7 @@ class UserSedder extends Seeder
         User::updateOrCreate([
             'name'=>'User',
             'role_id'=>2,
+            'role_name'=>'user',
             'email'=>'user@gmail.com',
             'password'=>Hash::make('user@gmail.com'),
             'status'=>1

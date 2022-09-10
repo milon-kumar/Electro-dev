@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CategoryController;
+use App\Http\Controllers\frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductController;
 use \Illuminate\Support\Facades\Route;
@@ -15,4 +17,10 @@ Route::group(['as'=>'frontend.'],function (){
     Route::get('/category-product/{slug}',[ProductController::class,'categoryProduct'])->name('category-product');
 
     Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('add-to-cart');
+
+    Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
+
+    //User Auth
+
+    Route::post('/customer-register',[RegisteredUserController::class,'store'])->name('customer-register')->middleware('generated::lDjg708RJozBAcYQ ');
 });

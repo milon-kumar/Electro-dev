@@ -16,7 +16,7 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -33,6 +33,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+
+        return $request;
+        exit();
+
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

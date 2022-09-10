@@ -63,7 +63,7 @@
 
                         <!-- Cart -->
                         <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
                                 <div class="qty">{{cartProducts()->count()}}</div>
@@ -88,11 +88,11 @@
                                 </div>
                                 <div class="cart-summary">
                                     <small>{{cartProducts()->count()}} Item(s) selected</small>
-                                    <h5>SUBTOTAL: Tk .{{$sum}}</h5>
+                                    <h5>SUBTOTAL: Tk .{{$sum }}</h5>
                                 </div>
                                 <div class="cart-btns">
                                     <a href="#">View Cart</a>
-                                    <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="{{route('frontend.checkout')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
