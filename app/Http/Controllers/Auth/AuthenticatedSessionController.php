@@ -26,16 +26,18 @@ class AuthenticatedSessionController extends Controller
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(LoginRequest $request , $checkout)
+    public function store(LoginRequest $request)
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        if ($checkout == true){
+        if (isset($request->checkout) && $request->checkout == true){
+            toast('Login Success','success');
             return redirect()->route('frontend.checkout');
         }else{
-            return redirect()->intended(RouteServiceProvider::HOME);
+//            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->route('frontend.profile');
         }
 
     }

@@ -10,6 +10,9 @@ class CheckoutController extends Controller
 {
     public function checkout()
     {
+//        return "checkout";
+//        exit();
+
         $cartProducts = \Cart::getContent();
 
         if ($cartProducts->count() > 0){

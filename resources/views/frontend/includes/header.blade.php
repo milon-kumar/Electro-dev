@@ -9,8 +9,23 @@
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
             </ul>
             <ul class="header-links pull-right">
+
                 <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                @guest
+                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                @endguest
+                @auth
+                    <li><a href="#"><i class="fa fa-user-o"></i>Profile</a></li>
+                    <li>
+                        <a href="" onclick="event.preventDefault();document.getElementById('logoutForm').submit();">
+                            <i class="fa fa-sign-out"></i>
+                            Logout</a>
+                    </li>
+
+                    <form id="logoutForm" action="{{route('logout')}}" method="post">
+                        @csrf
+                    </form>
+                @endauth
             </ul>
         </div>
     </div>

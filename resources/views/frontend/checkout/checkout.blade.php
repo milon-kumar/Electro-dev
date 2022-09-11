@@ -1,5 +1,11 @@
 @extends('frontend.master')
-
+@push('css')
+    <style>
+        .is-invalide{
+            color: #D10024;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="">
 
@@ -26,8 +32,6 @@
         <!-- SECTION -->
         <div class="section">
             <!-- container -->
-            <form action="" method="post">
-                @csrf
                 <div class="container">
                     <!-- row -->
                     <div class="row">
@@ -114,23 +118,75 @@
                                 <!-- /Order notes -->
                             @endauth
                             @guest
-
-                                    <form action="{{route('')}}" method="POST">
-                                        @csrf
-                                        @method("POST")
-                                        <input type="submit" class="btn btn-success" value="submit">
-                                    </form>
-
                                     <div class="section-title">
-                                        <h3 class="title">Signup Or Register For Order</h3>
+                                        <h5 class="title">Signup Or Login For Your Order</h5>
+                                        <div class="section-nav">
+                                            <ul class="section-tab-nav tab-nav">
+                                                <li class="active"><a data-toggle="tab" href="#tab1">Sign Up</a></li>
+                                                <li><a data-toggle="tab" href="#tab2">Login Now</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="products-tabs">
+                                        <!-- tab -->
+                                        <div id="tab1" class="tab-pane active">
+                                            <form action="{{route('register')}}" method="post" class="billing-details">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <input type="hidden" name="checkout" value="true">
+                                                    <input class="input @error('name')is-invalide @endif" type="text" name="name" placeholder="Enter Your Name">
+                                                    @error('name')
+                                                    <small class="is-invalide">{{$message}}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="input @error('email')is-invalide @endif" type="email" name="email" placeholder="Enter Your Email">
+                                                    @error('email')
+                                                    <small class="is-invalide">{{$message}}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="input @error('password')is-invalide @endif" type="password" name="password" placeholder="Enter Password">
+                                                    @error('password')
+                                                    <small class="is-invalide">{{$message}}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="input @error('password_confirmation')is-invalide @endif" type="password" name="password_confirmation" placeholder="Retype Password">
+                                                    @error('password_confirmation')
+                                                    <small class="is-invalide">{{$message}}</small>
+                                                    @enderror
+                                                </div>
+                                                <button type="submit" class="primary-btn order-submit btn-block">Sing Up Now</button>
+                                            </form>
+                                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                                        </div>
+                                        <!-- /tab -->
 
-                                        <a href="" class="primary-btn order-submit">Signin Now</a>
-                                        <a href="" class="primary-btn order-submit">Signin Now</a>
+                                        <!-- tab -->
+                                        <div id="tab2" class="tab-pane ">
+                                            <form action="{{route('login')}}" method="post" class="billing-details">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <input type="hidden" name="checkout" value="true">
+                                                    <input class="input @error('email')is-invalide @endif" type="email" name="email" placeholder="Enter Your Email">
+                                                    @error('email')
+                                                    <small class="is-invalide">{{$message}}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="input @error('password')is-invalide @endif" type="password" name="password" placeholder="Enter Password">
+                                                    @error('password')
+                                                    <small class="is-invalide">{{$message}}</small>
+                                                    @enderror
+                                                </div>
+                                                <button type="submit" class="primary-btn order-submit btn-block">Sing In Now</button>
+                                            </form>
+                                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                                        </div>
+                                        <!-- /tab -->
                                     </div>
                             @endguest
-                            <!-- /Billing Details -->
                         </div>
 
                         <!-- Order Details -->
@@ -199,13 +255,14 @@
                                     I've read and accept the <a href="#">terms & conditions</a>
                                 </label>
                             </div>
-                            <button type="submit" {{auth()->check() ? '' : 'disabled'}} class="primary-btn order-submit btn-block">Place order</button>
+                            <button type="submit" class="primary-btn order-submit btn-block">Place order</button>
+{{--                            <button type="submit" {{auth()->check() ? '' : 'disabled'}} class="primary-btn order-submit btn-block">Place order</button>--}}
                         </div>
                         <!-- /Order Details -->
                     </div>
                     <!-- /row -->
                 </div>
-            </form>
+
 
             <!-- /container -->
         </div>

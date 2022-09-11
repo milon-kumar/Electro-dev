@@ -31,11 +31,8 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request,$checkout=null)
     {
-
-        return $request;
-        exit();
 
 
         $request->validate([
@@ -54,6 +51,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if (isset($request->checkout) && $request->checkout == true){
+            toast('Login Success','success');
+            return redirect()->route('frontend.checkout');
+        }else{
+//            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->route('frontend.profile');
+        }
     }
 }

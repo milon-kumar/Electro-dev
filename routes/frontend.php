@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\forntend\ProfileController;
+use App\Http\Controllers\frontend\AuthController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\frontend\CheckoutController;
@@ -21,6 +23,9 @@ Route::group(['as'=>'frontend.'],function (){
     Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
 
     //User Auth
+//    Route::post('/auth/store',[])->name('auth.store');
 
-    Route::post('/customer-register',[RegisteredUserController::class,'store'])->name('customer-register')->middleware('generated::lDjg708RJozBAcYQ ');
+    Route::group(['middleware'=>'auth'],function(){
+       Route::get('/profile',[ProfileController::class,'index'])->name('profile');
+    });
 });
