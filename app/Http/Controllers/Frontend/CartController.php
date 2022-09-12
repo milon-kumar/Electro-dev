@@ -21,6 +21,7 @@ class CartController extends Controller
             'price'=>$product->price,
             'quantity'=>$request->quantity,
             'attributes'=>[
+                'product_id'=>$product->id,
                 'image'=>$product->image,
             ],
             'associatedModel'=>$product,

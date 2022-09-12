@@ -65,6 +65,6 @@
 <script src="{{asset('/')}}assets/frontend/js/nouislider.min.js"></script>
 <script src="{{asset('/')}}assets/frontend/js/jquery.zoom.min.js"></script>
 <script src="{{asset('/')}}assets/frontend/js/main.js"></script>
-
+@stack('js')
 </body>
 </html>

@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('frontend.auth.register');
     }
 
     /**
@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         if (isset($request->checkout) && $request->checkout == true){
-            toast('Login Success','success');
+            toast('Registration Success , Login Now','success');
             return redirect()->route('frontend.checkout');
         }else{
 //            return redirect()->intended(RouteServiceProvider::HOME);

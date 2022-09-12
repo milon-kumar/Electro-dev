@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class OrderProduct extends Model
 {
     use HasFactory;
-    protected $table='brands';
+    protected $table='order_products';
     protected $guarded=['id'];
-
-    public function productCount()
-    {
-        return $this->hasMany(Product::class)->where('status',true);
-    }
 }

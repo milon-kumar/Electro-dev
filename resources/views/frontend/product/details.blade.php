@@ -1,5 +1,12 @@
 @extends('frontend.master')
-
+@push('css')
+    <style>
+        .wishlistActive {
+            color: #D10024;
+            border-radius: 50%;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="">
         <!-- BREADCRUMB -->
@@ -131,7 +138,29 @@
                             </div>
 
                             <ul class="product-btns">
-                                <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+
+                                @auth
+                                    <form id="addToWishlist{{$product->id}}" action="{{route('frontend.add-to-wishlist')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="add_to_wish" value="true">
+                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                    </form>
+
+                                    <a style="cursor: pointer;padding-right: 15px;"
+                                        onclick="event.preventDefault();document.getElementById('addToWishlist{{$product->id}}').submit();"
+                                        class="add-to-wishlist {{optional(checkWishList($product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
+                                        <i class="fa fa-heart-o"></i>
+                                        <span class="tooltipp">add to wishlist
+                                                </span></a>
+                                @else
+                                    <button
+
+                                        class="add-to-wishlist {{optional(checkWishList($product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
+                                        <i class="fa fa-heart-o"></i>
+                                        <span class="tooltipp">Login First
+                                                </span></button>
+                                @endauth
+
                                 <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
                             </ul>
 
@@ -387,124 +416,60 @@
                         </div>
                     </div>
 
+                    @foreach($relatedProduct as $r_product)
                     <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="{{asset('/')}}assets/frontend/img/product01.png" alt="">
-                                <div class="product-label">
-                                    <span class="sale">-30%</span>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="product">
+                                <div class="product-img">
+                                    <img src="{{asset('uploads/'.$r_product->image)}}" alt="">
+                                    <div class="product-label">
+                                        <span class="sale">- {{$r_product->discount}} %</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price"><del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
+                                <div class="product-body">
+                                    <p class="product-category">{{$r_product->category->name}}</p>
+                                    <h3 class="product-name"><a href="#">{{$r_product->name}}</a></h3>
+                                    <h4 class="product-price">Tk . {{$r_product->price}} <del class="product-old-price">Tk. {{$r_product->price + 20}}</del></h4>
+                                    <div class="product-rating">
+                                    </div>
+                                    <div class="product-btns">
+                                        @auth
+                                            <form id="addToWishlist{{$r_product->id}}" action="{{route('frontend.add-to-wishlist')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="add_to_wish" value="true">
+                                                <input type="hidden" name="product_id" value="{{$r_product->id}}">
+                                            </form>
+
+                                            <button
+                                                onclick="event.preventDefault();document.getElementById('addToWishlist{{$r_product->id}}').submit();"
+                                                class="add-to-wishlist {{optional(checkWishList($r_product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
+                                                <i class="fa fa-heart-o"></i>
+                                                <span class="tooltipp">add to wishlist
+                                                </span></button>
+                                        @else
+                                            <button
+
+                                                class="add-to-wishlist {{optional(checkWishList($r_product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
+                                                <i class="fa fa-heart-o"></i>
+                                                <span class="tooltipp">Login First
+                                                </span></button>
+                                        @endauth
+
+                                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+                                        <a href="{{route('frontend.product-details',$r_product->slug)}}" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
+                                    </div>
                                 </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                <div class="add-to-cart">
+                                    <form action="{{route('frontend.add-to-cart')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="quantity" value="1">
+                                        <input type="hidden" name="id" value="{{$r_product->id}}">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    </form>
                                 </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                             </div>
                         </div>
-                    </div>
-                    <!-- /product -->
-
-                    <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="{{asset('/')}}assets/frontend/img/product02.png" alt="">
-                                <div class="product-label">
-                                    <span class="new">NEW</span>
-                                </div>
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product -->
-
-                    <div class="clearfix visible-sm visible-xs"></div>
-
-                    <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="{{asset('/')}}assets/frontend/img/product03.png" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product -->
-
-                    <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="{{asset('/')}}assets/frontend/img/product04.png" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product -->
-
+                    @endforeach
                 </div>
                 <!-- /row -->
             </div>

@@ -12,7 +12,8 @@
 
                 <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
                 @guest
-                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                    <li><a href="{{route('login')}}"><i class="fa fa-sign-in"></i> Login</a></li>
+                    <li><a href="{{route('register')}}"><i class="fa fa-registered"></i> Register</a></li>
                 @endguest
                 @auth
                     <li><a href="#"><i class="fa fa-user-o"></i>Profile</a></li>
@@ -66,16 +67,17 @@
                 <!-- ACCOUNT -->
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
-                        <!-- Wishlist -->
-                        <div>
-                            <a href="#">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
-                                <div class="qty">2</div>
-                            </a>
-                        </div>
-                        <!-- /Wishlist -->
-
+                        @auth
+                            <!-- Wishlist -->
+                            <div>
+                                <a href="{{route('frontend.wishlist')}}">
+                                    <i class="fa fa-heart-o"></i>
+                                    <span>Your Wishlist</span>
+                                    <div class="qty">{{wishlistCountbyUser()}}</div>
+                                </a>
+                            </div>
+                            <!-- /Wishlist -->
+                        @endauth
                         <!-- Cart -->
                         <div class="dropdown">
                             <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">

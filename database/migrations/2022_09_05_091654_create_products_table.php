@@ -32,6 +32,8 @@ return new class extends Migration
             $table->integer('discount')->nullable();
             $table->integer('sell_count')->default(0);
             $table->integer('view_count')->default(0);
+            $table->integer('order_count')->default(0);
+            $table->integer('cell_count')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

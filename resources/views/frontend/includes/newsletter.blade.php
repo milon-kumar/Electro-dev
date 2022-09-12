@@ -7,9 +7,16 @@
             <div class="col-md-12">
                 <div class="newsletter">
                     <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Enter Your Email">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                    <form action="{{route('frontend.subscribe')}}" method="post">
+                        @csrf
+                        <input class="input" type="email" name="email" placeholder="Enter Your Email">
+
+                        <button type="submit" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                        <br>
+                        <br>
+                        @error('subscribe_email')
+                        <small style="color: #D10024;">{{$message}}</small>
+                        @enderror
                     </form>
                     <ul class="newsletter-follow">
                         <li>
