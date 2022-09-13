@@ -8,7 +8,9 @@
             padding: 20px;
             box-shadow: 0 0 5px 2px rgb(0 0 0 / 18%);
         }
-
+        .is-invalide{
+            color: #D10024;
+        }
     </style>
 @endpush
 @section('content')

@@ -20,10 +20,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="breadcrumb-tree">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">All Categories</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li class="active">Headphones (227,490 Results)</li>
+                        <li><a href="{{ route('frontend.home') }}">Home</a></li>
+                        <li><a href="{{route('frontend.all-category-product')}}">All Categories</a></li>
+                        <li class="active"> {{$categoryName->name}} ({{$categoryName->productCount->count()}} Results) </li>
                     </ul>
                 </div>
             </div>
@@ -81,7 +80,7 @@
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category"><a href="{{route('frontend.product-details',$t_product->slug)}}">{{$t_product->category->name}} </a></p>
-                                    <h3 class="product-name"><a href="{{route('frontend.product-details',$t_product->slug)}}">{{$t_product->title}}</a></h3>
+                                    <h3 class="product-name"><a href="{{route('frontend.product-details',$t_product->slug)}}">{{$t_product->name}}</a></h3>
                                     <h4 class="product-price">Tk.{{$t_product->price}} <del class="product-old-price">{{$t_product->price+20 }}</del></h4>
                                 </div>
                             </div>
@@ -139,8 +138,8 @@
                                         </div>
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">Category</p>
-                                        <h3 class="product-name"><a href="{{route('frontend.product-details',$c_product->slug)}}">{{$c_product->title}}</a></h3>
+                                        <p class="product-category">{{$c_product->category->name}}</p>
+                                        <h3 class="product-name"><a href="{{route('frontend.product-details',$c_product->slug)}}">{{$c_product->name}}</a></h3>
                                         <h4 class="product-price">Tk.{{$c_product->price}} <del class="product-old-price">{{$c_product->price+20 }}</del></h4>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>

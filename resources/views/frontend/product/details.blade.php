@@ -3,7 +3,9 @@
     <style>
         .wishlistActive {
             color: #D10024;
-            border-radius: 50%;
+            /*border-radius: 50%;*/
+            background: none;
+            border: none;
         }
     </style>
 @endpush
@@ -17,11 +19,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="breadcrumb-tree">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">All Categories</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Headphones</a></li>
-                            <li class="active">Product name goes here</li>
+                            <li><a href="{{route('frontend.home')}}">Home</a></li>
+                            <li><a href="{{route('frontend.category-product',$product->category->slug)}}">{{$product->category->name}}</a></li>
+                            <li class="active">{{$product->name}}</li>
                         </ul>
                     </div>
                 </div>

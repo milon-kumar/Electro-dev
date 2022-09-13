@@ -51,6 +51,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        if (Auth::check()&&Auth::user()->role_id == 1){
+//            return redirect()->route('backend.')
+        }
         if (isset($request->checkout) && $request->checkout == true){
             toast('Registration Success , Login Now','success');
             return redirect()->route('frontend.checkout');

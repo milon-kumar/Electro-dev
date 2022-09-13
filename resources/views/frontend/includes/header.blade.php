@@ -10,7 +10,7 @@
             </ul>
             <ul class="header-links pull-right">
 
-                <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+                <li><a href="#"><i class="fa fa-money"></i> BDT</a></li>
                 @guest
                     <li><a href="{{route('login')}}"><i class="fa fa-sign-in"></i> Login</a></li>
                     <li><a href="{{route('register')}}"><i class="fa fa-registered"></i> Register</a></li>
@@ -51,14 +51,14 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
-                            <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+                        <form action="{{route('frontend.search')}}" method="get">
+                            <select name="category_id" class="input-select">
+                                @foreach(searchCategory() as $category)
+                                    <option value="{{$category->id}}">{{Str::limit($category->name,12)}}</option>
+                                @endforeach
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input class="input" name="query" placeholder="Search here">
+                            <button type="submit" class="search-btn">Search</button>
                         </form>
                     </div>
                 </div>

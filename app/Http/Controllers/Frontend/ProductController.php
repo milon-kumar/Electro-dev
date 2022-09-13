@@ -22,6 +22,20 @@ class ProductController extends Controller
         ]);
     }
 
+
+    public function allCategoryProduct()
+    {
+        $categroy = Category::where('status',true)->latest()->paginate(12);
+
+        return view('frontend.category.all-category',[
+            'allCategory'=>$categroy,
+            'category'=>Category::where('status',true)->orderBy('created_at',"ASC")->limit(6)->get(),
+            'brand'=>Brand::where('status',true)->orderBy('created_at',"ASC")->limit(6)->get(),
+            'topProduct'=>Product::where('status',1)->orderBy('view_count','DESC')->limit(8)->get(),
+        ]);
+    }
+
+
     public function categoryProduct($slug)
     {
         $categroy = Category::where('slug',$slug)->first();
@@ -31,6 +45,7 @@ class ProductController extends Controller
             'category'=>Category::where('status',true)->orderBy('created_at',"ASC")->limit(6)->get(),
             'brand'=>Brand::where('status',true)->orderBy('created_at',"ASC")->limit(6)->get(),
             'topProduct'=>Product::where('status',1)->orderBy('view_count','DESC')->limit(8)->get(),
+            'categoryName'=>$categroy,
         ]);
     }
 

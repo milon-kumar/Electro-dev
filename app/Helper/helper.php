@@ -9,7 +9,11 @@ function cartProducts(){
 }
 
 function headerCategory(){
-    return Category::latest()->limit(7)->get();
+    return Category::where('status',true)->latest()->limit(7)->get();
+}
+
+function searchCategory(){
+    return Category::where('status',true)->inRandomOrder()->limit(10)->get();
 }
 
 function checkWishList($product_id){
