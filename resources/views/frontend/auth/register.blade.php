@@ -44,7 +44,7 @@
                     <form action="{{route('register')}}" method="post" class="billing-details">
                         @csrf
                         <div class="form-group">
-                            <input class="input @error('name')is-invalide @endif" type="email" name="name" placeholder="Enter Your User Name">
+                            <input class="input @error('name')is-invalide @endif" type="text" name="name" placeholder="Enter Your User Name">
                             @error('name')
                             <small class="is-invalide">{{$message}}</small>
                             @enderror

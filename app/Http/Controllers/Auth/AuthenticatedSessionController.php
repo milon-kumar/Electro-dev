@@ -13,7 +13,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -32,12 +32,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (isset($request->checkout) && $request->checkout == true){
-            toast('Login Success','success');
-            return redirect()->route('frontend.checkout');
-        }else{
-//            return redirect()->intended(RouteServiceProvider::HOME);
-            return redirect()->route('frontend.profile');
+        if (Auth::check() && Auth::user()->is_admin == true){
+            toast("Admin " .Auth::user()->name."Login Success",'success');
+            return redirect()->route('backend.dashboard');
+        }elseif (Auth::check() && Auth::user()->is_admin == false){
+            toast("MR/Mis " .Auth::user()->name."Login Success",'success');
+            return redirect()->route('frontend.home');
+        }  else{
+            toast('Unauthorized','error');
+            return redirect()->route('frontend.home');
         }
 
     }

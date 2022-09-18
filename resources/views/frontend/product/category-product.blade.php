@@ -22,7 +22,7 @@
                     <ul class="breadcrumb-tree">
                         <li><a href="{{ route('frontend.home') }}">Home</a></li>
                         <li><a href="{{route('frontend.all-category-product')}}">All Categories</a></li>
-                        <li class="active"> {{$categoryName->name}} ({{$categoryName->productCount->count()}} Results) </li>
+{{--                        <li class="active"> {{optional($categoryName)->name}} ({{optional($categoryName)->productCount->count()}} Results) </li>--}}
                     </ul>
                 </div>
             </div>

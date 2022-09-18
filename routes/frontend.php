@@ -31,7 +31,7 @@ Route::group(['as'=>'frontend.'],function (){
     //User Auth
 //    Route::post('/auth/store',[])->name('auth.store');
 
-    Route::group(['middleware'=>'auth'],function(){
+    Route::group(['middleware'=>['auth','user']],function(){
        Route::get('/profile',[ProfileController::class,'index'])->name('profile');
        Route::post('/order',[OrderController::class,'order'])->name('order');
        Route::get('/wishlist',[WishlistController::class,'getWishlist'])->name('wishlist');

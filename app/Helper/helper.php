@@ -3,6 +3,7 @@
 use App\Models\Category;
 use App\Models\Wishlist;
 use Darryldecode\Cart\Cart;
+use Illuminate\Support\Str;
 
 function cartProducts(){
     return \Cart::getContent();
@@ -22,4 +23,13 @@ function checkWishList($product_id){
 
 function wishlistCountbyUser(){
     return Wishlist::where('user_id',auth()->id())->get()->count();
+}
+
+function imageUpload($request,$existImage = null){
+    $image = $request->file('image');
+    $imageName = Str::random(15).".".$image->getClientOriginalExtension();
+    $image->move(public_path("uploads/"),$imageName);
+    $name = $imageName;
+
+    return $name;
 }

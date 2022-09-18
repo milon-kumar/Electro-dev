@@ -54,10 +54,10 @@ class ProductController extends Controller
         $brand = Brand::where('slug',$slug)->first();
 
         return view('frontend.product.category-product',[
-            'productByCategory'=>Product::where('status',1)->where('brand_id',$brand->id)->paginate(9),
+            'productByCategory'=>Product::with('category')->where('status',1)->where('brand_id',$brand->id)->paginate(9),
             'category'=>Category::where('status',true)->orderBy('created_at',"ASC")->limit(6)->get(),
             'brand'=>Brand::where('status',true)->orderBy('created_at',"ASC")->limit(6)->get(),
-            'topProduct'=>Product::where('status',1)->orderBy('view_count','DESC')->limit(8)->get(),
+            'topProduct'=>Product::with('category')->where('status',1)->orderBy('view_count','DESC')->limit(8)->get(),
         ]);
     }
 }

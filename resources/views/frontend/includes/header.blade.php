@@ -54,7 +54,7 @@
                         <form action="{{route('frontend.search')}}" method="get">
                             <select name="category_id" class="input-select">
                                 @foreach(searchCategory() as $category)
-                                    <option value="{{$category->id}}">{{Str::limit($category->name,12)}}</option>
+                                    <option value="{{$category->id}}">{{Str::limit($category->name,8)}}</option>
                                 @endforeach
                             </select>
                             <input class="input" name="query" placeholder="Search here">

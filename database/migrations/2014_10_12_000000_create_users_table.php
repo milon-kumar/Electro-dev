@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id')->nullable()->default('2');
-            $table->string('role_name')->nullable()->default('user');
-            $table->string('user_name')->nullable();
+            $table->boolean('is_admin')->default(false);
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();

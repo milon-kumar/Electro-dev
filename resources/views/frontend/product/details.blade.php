@@ -146,7 +146,7 @@
                                         <input type="hidden" name="product_id" value="{{$product->id}}">
                                     </form>
 
-                                    <a style="cursor: pointer;padding-right: 15px;"
+                                    <a style="cursor: pointer;padding-right: 15px; background: none;border: none"
                                         onclick="event.preventDefault();document.getElementById('addToWishlist{{$product->id}}').submit();"
                                         class="add-to-wishlist {{optional(checkWishList($product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
                                         <i class="fa fa-heart-o"></i>
@@ -154,7 +154,7 @@
                                                 </span></a>
                                 @else
                                     <button
-
+                                        style="background: none;border: none;color: black;"
                                         class="add-to-wishlist {{optional(checkWishList($product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
                                         <i class="fa fa-heart-o"></i>
                                         <span class="tooltipp">Login First
@@ -440,7 +440,7 @@
                                                 <input type="hidden" name="product_id" value="{{$r_product->id}}">
                                             </form>
 
-                                            <button
+                                            <button style="background: none;border: none;color: black;"
                                                 onclick="event.preventDefault();document.getElementById('addToWishlist{{$r_product->id}}').submit();"
                                                 class="add-to-wishlist {{optional(checkWishList($r_product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
                                                 <i class="fa fa-heart-o"></i>
@@ -448,7 +448,7 @@
                                                 </span></button>
                                         @else
                                             <button
-
+                                                style="background: none;border: none;color: black;"
                                                 class="add-to-wishlist {{optional(checkWishList($r_product->id) )->is_wish == 1 ? 'wishlistActive' : ''}}">
                                                 <i class="fa fa-heart-o"></i>
                                                 <span class="tooltipp">Login First
